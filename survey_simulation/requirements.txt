@@ -1,0 +1,7 @@
+openai-agents
+python-dotenv
+matplotlib
+numpy
+pandas
+seaborn
+scipy 
