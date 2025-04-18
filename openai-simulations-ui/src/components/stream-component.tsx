@@ -145,7 +145,7 @@ const StreamComponent: React.FC<StreamComponentProps> = ({ endpoint }) => {
   return (
     <Card>
       <CardContent className="p-4">
-        <ScrollArea className="h-[500px] w-full rounded-md border p-4 text-sm bg-black/20 backdrop-blur-sm">
+        <ScrollArea className="h-[500px] w-full rounded-md border p-4 text-sm bg-gray-100/90 dark:bg-black/20 backdrop-blur-sm">
           {transcript.length === 0 && !loading && (
             <p className="text-muted-foreground">Waiting for the focus group to begin...</p>
           )}
@@ -154,7 +154,7 @@ const StreamComponent: React.FC<StreamComponentProps> = ({ endpoint }) => {
             if (isSectionHeader(line)) {
               return (
                 <div key={index} className="flex justify-center my-4">
-                  <div className="bg-blue-900/50 text-blue-100 px-4 py-2 rounded-full font-semibold text-sm">
+                  <div className="bg-blue-900/50 text-blue-100 dark:text-blue-100 px-4 py-2 rounded-full font-semibold text-sm">
                     <Flag className="inline-block mr-2 h-4 w-4" />
                     {line.replace(/---/g, '').trim()}
                   </div>
@@ -167,8 +167,8 @@ const StreamComponent: React.FC<StreamComponentProps> = ({ endpoint }) => {
                     <MessageCircle className="h-5 w-5" />
                   </div>
                   <div className="flex-1">
-                    <p className="font-bold text-purple-300 mb-1">Moderator</p>
-                    <div className="bg-purple-950/40 p-3 rounded-lg text-purple-100">
+                    <p className="font-bold text-purple-800 dark:text-purple-300 mb-1">Moderator</p>
+                    <div className="bg-purple-100/70 dark:bg-purple-950/40 p-3 rounded-lg text-purple-950 dark:text-purple-100">
                       {line.replace('Moderator:', '').trim()}
                     </div>
                   </div>
@@ -191,10 +191,10 @@ const StreamComponent: React.FC<StreamComponentProps> = ({ endpoint }) => {
                     <User className="h-5 w-5" />
                   </div>
                   <div className="flex-1">
-                    <p className="font-bold mb-1" style={{ color: `hsl(${hue}, 70%, 70%)` }}>
+                    <p className="font-bold mb-1" style={{ color: `hsl(${hue}, 70%, 40%)` }}>
                       {participantName}
                     </p>
-                    <div className="bg-gray-800/50 p-3 rounded-lg text-gray-100">
+                    <div className="bg-white/80 dark:bg-gray-800/50 p-3 rounded-lg text-gray-900 dark:text-gray-100">
                       {line.substring(line.indexOf(':') + 1).trim()}
                     </div>
                   </div>
@@ -203,7 +203,7 @@ const StreamComponent: React.FC<StreamComponentProps> = ({ endpoint }) => {
             } else if (line.includes('thinking')) {
               return (
                 <div key={index} className="flex justify-center my-2">
-                  <div className="text-gray-400 text-xs italic flex items-center">
+                  <div className="text-gray-600 dark:text-gray-400 text-xs italic flex items-center">
                     <div className="animate-pulse mr-2">•••</div>
                     {line}
                   </div>
@@ -211,7 +211,7 @@ const StreamComponent: React.FC<StreamComponentProps> = ({ endpoint }) => {
               );
             } else {
               return (
-                <div key={index} className="text-gray-300 my-2 text-sm">
+                <div key={index} className="text-gray-700 dark:text-gray-300 my-2 text-sm">
                   <ChevronRight className="inline-block h-4 w-4 mr-1 text-gray-500" />
                   {line}
                 </div>
