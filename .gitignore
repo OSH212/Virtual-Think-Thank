@@ -16,4 +16,8 @@ myenv/
 plan.txt
 req_id.txt
 
+# Ignore specific Bivvy and Cursor files
+.bivvy/abcd-climb.md
+.bivvy/abcd-moves.json
+.cursor/rules/bivvy.mdc
 
