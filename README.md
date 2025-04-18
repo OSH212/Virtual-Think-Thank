@@ -125,6 +125,8 @@ python idi_simulation/idi_simulation.py \
 
 ### 3. Running the Focus Group Simulation
 
+![Focus Group Simulation Interface](./fg_sim.png)
+
 **Arguments:**
 *   `--topic "Focus Group Topic"`: (Optional, default: Consumer preferences for sustainable footwear) The main discussion topic.
 *   `--target_audience "Description of Audience"`: (Optional, default: Urban professionals aged 25-40 interested in sustainability) The profile type for the virtual participants.
