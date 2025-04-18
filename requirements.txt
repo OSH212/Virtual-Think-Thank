@@ -1,10 +1,26 @@
 # Consolidated Python dependencies for AI Agent Simulations project
 # Install using: pip install -r requirements.txt
 
+# Core dependencies for simulation
+openai
 openai-agents
-numpy
-pandas
-matplotlib
-seaborn
 python-dotenv
-openai 
+pydantic
+
+# Data analysis and visualization
+matplotlib
+numpy
+networkx
+wordcloud
+seaborn
+scikit-learn
+nltk
+regex
+textblob
+
+# Error handling and testing
+tenacity
+rich
+
+# Graph visualization
+pyvis

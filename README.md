@@ -1,5 +1,7 @@
 # AI Agent Simulations Platform
 
+![AI Agent Simulations](./image.png)
+
 A platform for simulating AI agent interactions and behaviors, and to mimic some of the work done by market research firms and/or policy institues (for example: surveys and focus groups).
 
 ## Installation and Setup Guide
@@ -163,4 +165,19 @@ python focus_group_simulation/focus_group_simulation.py \
 ## Support
 
 If you encounter any issues, please open an issue on the GitHub repository.
+
+## License 
+
+Copyright [2025] [(https://github.com/OSH212)]
+
+Permission is hereby granted to view and read the contents of this repository for personal or evaluative purposes only.
+
+You MAY NOT:
+- Reproduce, redistribute, or modify any part of the code for public or private use.
+- Use the code or its derivatives for commercial purposes.
+- Clone, fork, or download the repository for reuse or redistribution without explicit written permission.
+- Integrate this code into any project, product, or codebase, public or private, without explicit written permission.
+
+All rights, title, and interest in and to the repository remain with the author.
+
 

@@ -28,13 +28,9 @@ const formSchema = z.object({
   }).default("Urban professionals aged 25-40 interested in sustainability"),
   numParticipants: z.coerce.number().int().min(2, {
     message: "Must have at least 2 participants.",
-  }).max(10, { // Added a reasonable max for performance/cost
-    message: "Cannot exceed 10 participants.",
   }).default(4),
   numRounds: z.coerce.number().int().min(1, {
     message: "Must have at least 1 round.",
-  }).max(5, { // Added a reasonable max
-      message: "Cannot exceed 5 rounds.",
   }).default(3),
 });
 

@@ -11,5 +11,9 @@ myenv/
 # system files
 .DS_Store
 
+#
+
+plan.txt
+req_id.txt
 
 

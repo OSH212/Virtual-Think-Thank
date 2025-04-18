@@ -4,10 +4,28 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { MessageCircle, User, Flag, ChevronRight } from "lucide-react";
 
 interface StreamComponentProps {
   endpoint: string;
 }
+
+// Helper function to determine if a line is from the moderator
+const isModeratorLine = (line: string) => line.startsWith('Moderator:');
+
+// Helper function to determine if a line is from a participant
+const isParticipantLine = (line: string) => {
+  return line.includes('(Participant_') && !line.startsWith('---');
+};
+
+// Helper function to determine if a line is a section header (e.g., "--- Round 1 ---")
+const isSectionHeader = (line: string) => line.startsWith('---') && line.endsWith('---');
+
+// Helper to extract participant name
+const extractParticipantName = (line: string) => {
+  const nameMatch = line.match(/^(.*?)\s+\(Participant_\d+\):/);
+  return nameMatch ? nameMatch[1] : 'Participant';
+};
 
 const StreamComponent: React.FC<StreamComponentProps> = ({ endpoint }) => {
   const [content, setContent] = useState<string>('');
@@ -127,13 +145,79 @@ const StreamComponent: React.FC<StreamComponentProps> = ({ endpoint }) => {
   return (
     <Card>
       <CardContent className="p-4">
-        <ScrollArea className="h-[400px] w-full rounded-md border p-4 text-sm bg-muted/40">
+        <ScrollArea className="h-[500px] w-full rounded-md border p-4 text-sm bg-black/20 backdrop-blur-sm">
           {transcript.length === 0 && !loading && (
-            <p className="text-muted-foreground">No content available yet...</p>
+            <p className="text-muted-foreground">Waiting for the focus group to begin...</p>
           )}
-          {transcript.map((line, index) => (
-            <p key={index} className="mb-1">{line}</p>
-          ))}
+          {transcript.map((line, index) => {
+            // Format different types of lines
+            if (isSectionHeader(line)) {
+              return (
+                <div key={index} className="flex justify-center my-4">
+                  <div className="bg-blue-900/50 text-blue-100 px-4 py-2 rounded-full font-semibold text-sm">
+                    <Flag className="inline-block mr-2 h-4 w-4" />
+                    {line.replace(/---/g, '').trim()}
+                  </div>
+                </div>
+              );
+            } else if (isModeratorLine(line)) {
+              return (
+                <div key={index} className="flex items-start mb-4">
+                  <div className="flex-shrink-0 bg-purple-700 text-white p-2 rounded-full mr-3">
+                    <MessageCircle className="h-5 w-5" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-bold text-purple-300 mb-1">Moderator</p>
+                    <div className="bg-purple-950/40 p-3 rounded-lg text-purple-100">
+                      {line.replace('Moderator:', '').trim()}
+                    </div>
+                  </div>
+                </div>
+              );
+            } else if (isParticipantLine(line)) {
+              const participantName = extractParticipantName(line);
+              const participantId = line.match(/\(Participant_(\d+)\)/)?.[1];
+              // Generate a consistent color based on participant ID
+              const hue = participantId ? (parseInt(participantId) * 60) % 360 : 180;
+              
+              return (
+                <div key={index} className="flex items-start mb-4 pl-6">
+                  <div className="flex-shrink-0 mr-3" style={{ 
+                    backgroundColor: `hsl(${hue}, 70%, 40%)`,
+                    borderRadius: '50%',
+                    padding: '0.5rem',
+                    color: 'white'
+                  }}>
+                    <User className="h-5 w-5" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-bold mb-1" style={{ color: `hsl(${hue}, 70%, 70%)` }}>
+                      {participantName}
+                    </p>
+                    <div className="bg-gray-800/50 p-3 rounded-lg text-gray-100">
+                      {line.substring(line.indexOf(':') + 1).trim()}
+                    </div>
+                  </div>
+                </div>
+              );
+            } else if (line.includes('thinking')) {
+              return (
+                <div key={index} className="flex justify-center my-2">
+                  <div className="text-gray-400 text-xs italic flex items-center">
+                    <div className="animate-pulse mr-2">•••</div>
+                    {line}
+                  </div>
+                </div>
+              );
+            } else {
+              return (
+                <div key={index} className="text-gray-300 my-2 text-sm">
+                  <ChevronRight className="inline-block h-4 w-4 mr-1 text-gray-500" />
+                  {line}
+                </div>
+              );
+            }
+          })}
           <div ref={transcriptEndRef} />
         </ScrollArea>
       </CardContent>
